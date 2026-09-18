@@ -4,7 +4,7 @@ This is an enhanced continuation of the Module 9 Django Blog Application, extend
 
 ---
 
-## 🎯 Key Enhancements & Implemented Features
+##  Key Enhancements & Implemented Features
 
 ### 1. Comment & Nested Reply System
 - **Self-referential Relationship**: Implemented `parent = models.ForeignKey('self', ...)` to allow multi-level, nested replies (Rahim -> Karim -> Rahim).
