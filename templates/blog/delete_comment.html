@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Delete Comment - DevBlog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-danger border-2 p-4 text-center bg-white">
+            <h4 class="fw-bold text-danger">Delete Comment</h4>
+            <p class="text-secondary mt-2">Are you sure you want to delete this comment?</p>
+            <blockquote class="blockquote bg-light p-3 rounded small text-muted">
+                "{{ comment.content }}"
+            </blockquote>
+            <form method="post" class="d-flex justify-content-center gap-2 mt-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger px-4">Yes, Delete</button>
+                <a href="{% url 'post_detail' comment.post.pk %}" class="btn btn-secondary px-4">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

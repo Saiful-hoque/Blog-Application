@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}My Posts - DevBlog{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <div>
+        <h2 class="fw-bold text-dark"><i class="bi bi-person-badge"></i> My Blog Posts</h2>
+        <p class="text-muted mb-0">Manage posts created by <strong>{{ user.username }}</strong></p>
+    </div>
+    <a href="{% url 'create_post' %}" class="btn btn-success"><i class="bi bi-plus-circle"></i> New Post</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" style="width: 45%;">Post Title</th>
+                    <th scope="col">Engagement</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col" class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'post_detail' post.pk %}" class="fw-bold text-decoration-none text-primary">
+                                {{ post.title }}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge bg-danger me-1">❤ {{ post.total_likes }}</span>
+                            <span class="badge bg-secondary me-1">💬 {{ post.total_comments }}</span>
+                            <span class="badge bg-warning text-dark">★ {{ post.avg_rating|default:"0"|floatformat:1 }}</span>
+                        </td>
+                        <td class="text-muted small">{{ post.created_at|date:"M d, Y" }}</td>
+                        <td class="text-end">
+                            <a href="{% url 'edit_post' post.pk %}" class="btn btn-sm btn-outline-warning me-1">Edit</a>
+                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            You have not written any posts yet. <a href="{% url 'create_post' %}">Write your first post!</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

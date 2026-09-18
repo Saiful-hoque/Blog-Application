@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Register - DevBlog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 p-4">
+            <div class="text-center mb-3">
+                <i class="bi bi-person-plus-fill text-primary" style="font-size: 2.5rem;"></i>
+                <h3 class="fw-bold mt-2">Create an Account</h3>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <small class="text-danger d-block">{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Register</button>
+            </form>
+            <div class="text-center mt-3 border-top pt-3">
+                <p class="small text-muted mb-0">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

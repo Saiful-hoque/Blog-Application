@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Popular Posts - DevBlog{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <div>
+        <h2 class="fw-bold text-dark"><i class="bi bi-fire text-danger"></i> Popular Blog Posts</h2>
+        <p class="text-muted mb-0">Ranked by engagement (Likes, Average Ratings, and Comments count)</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">All Posts</a>
+</div>
+
+<div class="list-group shadow-sm">
+    {% for post in posts %}
+        <div class="list-group-item list-group-item-action p-4 mb-2 border rounded">
+            <div class="d-flex w-100 justify-content-between align-items-center flex-wrap">
+                <h4 class="mb-1 fw-bold">
+                    <span class="text-primary me-2">#{{ forloop.counter }}</span>
+                    <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                </h4>
+                <div class="my-1">
+                    <span class="badge bg-danger me-1"><i class="bi bi-heart-fill"></i> {{ post.total_likes }} Likes</span>
+                    <span class="badge bg-secondary me-1"><i class="bi bi-chat-dots-fill"></i> {{ post.total_comments }} Comments</span>
+                    <span class="badge bg-warning text-dark"><i class="bi bi-star-fill"></i> {{ post.avg_rating|default:"0"|floatformat:1 }} / 5.0</span>
+                </div>
+            </div>
+            <p class="mb-2 text-secondary">{{ post.content|truncatewords:35 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">
+                    By <a href="{% url 'user_profile' post.author.username %}" class="fw-bold text-decoration-none">{{ post.author.username }}</a> on {{ post.created_at|date:"M d, Y" }}
+                </small>
+                <a href="{% url 'post_detail' post.pk %}" class="btn btn-sm btn-primary">Read Article</a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">No posts found to rank.</div>
+    {% endfor %}
+</div>
+{% endblock %}
