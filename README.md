@@ -1,4 +1,4 @@
-# 🚀 Advanced Blog Application (Module 10)
+#  Advanced Blog Application (Module 10)
 
 This is an enhanced continuation of the Module 9 Django Blog Application, extending the architecture with **Django Model Relationships, Advanced ORM Aggregations & Annotations, Query Optimization (`select_related`, `prefetch_related`), Nested Comments, Likes, and 1-5 Star Ratings**.
 
